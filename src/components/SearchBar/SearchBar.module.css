@@ -1,0 +1,12 @@
+.header {
+    min-width:1240px ;
+    width: 100%;
+    background-color:rgb(33, 20, 95);
+    margin: 0px auto;
+    text-align: center;
+}
+
+.barInput{
+    height: 30px;
+    min-width: 300px;
+}
