@@ -1,7 +1,11 @@
 import toast from 'react-hot-toast';
 import css from './SearchBar.module.css';
+import { useState } from "react";
 
 export const SearchBar = ({ onSearch }) => {
+
+  const [search, setSearch] = useState("");
+  
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -11,6 +15,7 @@ export const SearchBar = ({ onSearch }) => {
     }
 
     onSearch(e.target.elements.query.value);
+
     e.target.reset();
   };
 
@@ -24,6 +29,8 @@ export const SearchBar = ({ onSearch }) => {
             autoFocus
             placeholder="Пошук картинок та фото"
             className={css.barInput}
+            value={search}
+            onChange={({ target: { value } }) => setSearch(value)}
             />
             <button type="submit">Пошук</button>
         </form>

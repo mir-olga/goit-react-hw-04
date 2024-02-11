@@ -1,25 +1,16 @@
-export const ImageGallery = ({ items }) => {
+import  ImageCard  from "../ImageCard/ImageCard";
 
+const ImageGallery = ({ items }) => {
 	
 return (
 	<ul>
 		{items.map(item => (
-			<li key={item.objectID}>
-				<a href={item.url}>{item.title}</a>
+			<li key={item.id}>
+				<ImageCard item={item}/>
 			</li>
 		))}
-	</ul>
+	</ul>  
 );
-
-
-/*return (
-    <ul>
-	{/* Набір елементів списку із зображеннями }
-	<li>
-		<div>
-		<img src="" alt="" />
-		</div>
-	</li>
-</ul>
-)*/
 }
+
+export default ImageGallery;

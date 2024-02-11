@@ -1,28 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 import { SearchBar } from './SearchBar/SearchBar';
-import { ImageGallery } from './ImageGallery/ImageGallery';
-
+import ImageGallery from './ImageGallery/ImageGallery';
+import { Loader } from "./Loader/Loader";
+import  ErrorMessage  from "./ErrorMessage/ErrorMessage";
 import { fetchImages } from '../api';
 
-
 export const App = () => {
-  const [images, setImages] = useState([]);
 
-  const [query, setQuery] = useState('');
-  const [page, setPage] = useState(1);
-  //const [articles, setArticles] = useState([]);
+  const [images, setImages] = useState([]);
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [page, setPage] = useState(1);
 
-  const searchImages = async newQuery => {
-    setQuery(`${Date.now()}/${newQuery}`);
+  const searchImages = (query) => {
+    setQuery(query);
     setPage(1);
     setImages([]);
-  };
-
-  const handleLoadMore = () => {
-    setPage(page + 1);
   };
 
   useEffect(() => {
@@ -30,36 +25,30 @@ export const App = () => {
       return;
     }
 
-    async function fetchData() {
+    const fetchData = async (query, page = 1) => {
       try {
-        setLoading(true);
         setError(false);
-        const fetchedData = await fetchImages(query.split('/')[1], page);
-        setImages(prevImages => [...prevImages, ...fetchedData]);
+        setLoading(true);
+        const data = await fetchImages(query, page);
+       //setShowBtn(data.total_pages && data.total_pages !== page);
+        setImages((prevImages) => [...prevImages, ...data.results]);
       } catch (error) {
         setError(true);
       } finally {
         setLoading(false);
       }
-    }
-    fetchData();
-  }, [query, page]);
-
-
+    };
+    fetchData(query, page);
+  }, [page, query]);
+  
 
   return (
     <>
-      <div>
-      <SearchBar onSearch={searchImages} />
-      {error && <b>Oops, there was an error, please try reloading 😭</b>}
-      {images.length > 0 && <ImageGallery  items={images} />}
-      {loading && <b>Loading articles, please wait...</b>}
-      {images.length > 0 && !loading && (
-        <button onClick={handleLoadMore}>Load more</button>
-      )}
-      <Toaster position="top-left" />
-        
-      </div>
+      <SearchBar  onSearch={searchImages} />
+      {error && <ErrorMessage />}
+      {images.length > 0 && <ImageGallery items={images}/>}
+      {loading && <Loader />}
+      <Toaster position="top-left"/>
     </>
   );
-};
+}

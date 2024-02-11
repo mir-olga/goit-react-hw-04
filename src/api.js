@@ -1,10 +1,17 @@
 import axios from 'axios';
 
 export const fetchImages = async (query, page) => {
-  const response = await axios.get(`http://hn.algolia.com/api/v1/search`, {
-  //  const response = await axios.get(`https://api.unsplash.com/photos/?client_id=7r0M0a5sXVyFgnUhVucSAnmpw4V-XJfzVlwomEzVbfs`, {
-    params: { query, page, hitsPerPage: 10 },
-  });
+    const accessKey = "7r0M0a5sXVyFgnUhVucSAnmpw4V-XJfzVlwomEzVbfs";
+    //const accessKey = "AGNMiP3FVMhRRM0e6xxk52RIDOCH5aYr2KkPgy7w030";
+    
+    const response = await axios.get(
+        `https://api.unsplash.com/search/photos/?client_id=${accessKey}`, {
+        params: {
+            query,
+            page,
+            per_page: 2,
+        },
+    });
 
-  return response.data.hits;
-};
+    return response.data;
+}
