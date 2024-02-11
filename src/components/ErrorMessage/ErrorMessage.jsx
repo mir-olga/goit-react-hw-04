@@ -1,6 +1,10 @@
+import css from './ErrorMessage.module.css';
+
 const ErrorMessage = () => {
     return (
-       <p>This is ErrorMessage</p>
+       <div className={css.error}>
+         <p>Ой, сталася помилка, спробуйте перезавантажити сторінку 😭</p>
+      </div>
     );
    };
 
