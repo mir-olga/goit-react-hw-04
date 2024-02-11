@@ -4,6 +4,7 @@ import { SearchBar } from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import { Loader } from "./Loader/Loader";
 import  ErrorMessage  from "./ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
 import { fetchImages } from '../api';
 
 
@@ -31,7 +32,6 @@ export const App = () => {
         setError(false);
         setLoading(true);
         const data = await fetchImages(query, page);
-       //setShowBtn(data.total_pages && data.total_pages !== page);
         setImages((prevImages) => [...prevImages, ...data.results]);
       } catch (error) {
         setError(true);
@@ -42,6 +42,9 @@ export const App = () => {
     fetchData(query, page);
   }, [page, query]);
   
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
 
   return (
     <>
@@ -49,6 +52,7 @@ export const App = () => {
       {error && <ErrorMessage />}
       {images.length > 0 && <ImageGallery items={images}/>}
       {loading && <Loader />}
+      {images.length > 0 && !loading && <LoadMoreBtn handleLoadMore={handleLoadMore}/>}
       <Toaster position="top-left"/>
     </>
   );
