@@ -66,10 +66,10 @@ export const App = () => {
       {images.length > 0 && !loading && <LoadMoreBtn handleLoadMore={handleLoadMore}/>}
       <Toaster position="top-left"/>
       <ImageModal 
-          isOpen={modalIsOpen} 
+          modalIsOpen={modalIsOpen} 
           closeModal={closeModal} 
-          src={selectImage.src}
-          alt={selectImage.alt_description}
+          src={selectImage.urls}
+          alt={selectImage.alt}
       />
     </>
   );
