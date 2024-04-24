@@ -8,8 +8,6 @@ import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./ImageModal/ImageModal";
 import { fetchImages } from '../api';
 
-
-
 export const App = () => {
 
   const [images, setImages] = useState([]);
@@ -18,7 +16,7 @@ export const App = () => {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectImage, setSelectImage] = useState("");
+  const [selectImage, setSelectImage] = useState({ src: "", alt: "" });
 
   const searchImages = (query) => {
     setQuery(query);
@@ -63,15 +61,14 @@ export const App = () => {
     <>
       <SearchBar  onSearch={searchImages} />
       {error && <ErrorMessage />}
-      {images.length > 0 && <ImageGallery items={images}/>}
+      {images.length > 0 && <ImageGallery items={images} openModal={openModal}/>}
       {loading && <Loader />}
       {images.length > 0 && !loading && <LoadMoreBtn handleLoadMore={handleLoadMore}/>}
       <Toaster position="top-left"/>
       <ImageModal 
           isOpen={modalIsOpen} 
           closeModal={closeModal} 
-          openModal={openModal}
-          src={selectImage.urls.regular}
+          src={selectImage.src}
           alt={selectImage.alt_description}
       />
     </>

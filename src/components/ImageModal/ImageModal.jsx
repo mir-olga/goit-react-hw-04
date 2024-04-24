@@ -8,6 +8,8 @@ const customStyles = {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      height: "500px",
+    width: "500px",
     },
   };
 
@@ -19,12 +21,12 @@ const ImageModal = ({ closeModal, modalIsOpen, src, alt}) => {
             onRequestClose={closeModal}
             style={customStyles}
           >
-            <h2 >Hello</h2>
-            <button onClick={closeModal}>close</button>
-            <img src={src} alt={alt}/>
+            <div>
+              <img src={src} alt={alt}/>
+            </div>
           </Modal>
       );
-}
+};
 export default ImageModal;
 
 Modal.setAppElement("#root");

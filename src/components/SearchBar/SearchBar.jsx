@@ -32,7 +32,7 @@ export const SearchBar = ({ onSearch }) => {
             value={search}
             onChange={({ target: { value } }) => setSearch(value)}
             />
-            <button type="submit">Пошук</button>
+            <button type="submit" className={css.searchBut}>Пошук</button>
         </form>
         </header>
   );
