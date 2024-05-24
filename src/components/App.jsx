@@ -43,7 +43,7 @@ export const App = () => {
     };
     fetchData(query, page);
   }, [page, query]);
-  
+
   const handleLoadMore = () => {
     setPage(page + 1);
   };
@@ -64,6 +64,7 @@ export const App = () => {
       {images.length > 0 && <ImageGallery items={images} openModal={openModal}/>}
       {loading && <Loader />}
       {images.length > 0 && !loading && <LoadMoreBtn handleLoadMore={handleLoadMore}/>}
+      
       <Toaster position="top-left"/>
       <ImageModal 
           modalIsOpen={modalIsOpen} 

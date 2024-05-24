@@ -8,8 +8,6 @@ const ImageCard = ({ small, descr, openModal, regular }) => {
                 className={css.imageCard}
                 src={small}
                 alt={descr}
-                width="300"
-                height="400"
             />
              </div>
     );
